@@ -95,7 +95,7 @@ func SleepWakeHandle() {
             // Action before sleep
             SH.SleepHandle()
 
-            time.Sleep(time.Second * 1)
+            time.Sleep(time.Second * 5)
 
             // Action after sleep
             log.Println("Back from sleep ...")
