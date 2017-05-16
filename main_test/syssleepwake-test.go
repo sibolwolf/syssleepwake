@@ -1,7 +1,7 @@
 package main
 
 import (
-    "fmt"
+    "log"
     "os"
     "os/signal"
     "time"
@@ -30,7 +30,7 @@ func SysSWTest() {
 }
 
 func main() {
-    fmt.Println("Hello, SysSW")
+    log.Println("Hello, SysSW")
     SysSW.Init()
     go SysSWTest()
 

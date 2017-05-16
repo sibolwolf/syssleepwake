@@ -3,9 +3,11 @@ package syssleepwake
 // Package name is smartconn.cc/sibolwolf/syssleepwake
 
 import (
-    "fmt"
+    "log"
     "time"
     "os/exec"
+    SH "smartconn.cc/sibolwolf/syssleepwake/sleephandle"
+    WH "smartconn.cc/sibolwolf/syssleepwake/wakehandle"
 )
 
 /*
@@ -31,13 +33,13 @@ var cntdownsum int = 50
 var cntdown int = 50
 
 func ShowLockStatus() {
-    fmt.Println("---------------------------------------")
-    fmt.Printf("Current lock status is: %d\n", currlocksum)
-    fmt.Println("audiolock:",           lockstatus["audiolock"])
-    fmt.Println("cameralock:",          lockstatus["cameralock"])
-    fmt.Println("storydecompresslock",  lockstatus["storydecompresslock"])
-    fmt.Println("storydownloadlock",    lockstatus["storydownloadlock"])
-    fmt.Println("storysynclock",        lockstatus["storysynclock"])
+    log.Println("---------------------------------------")
+    log.Printf("Current lock status is: %d\n", currlocksum)
+    log.Println("audiolock:",           lockstatus["audiolock"])
+    log.Println("cameralock:",          lockstatus["cameralock"])
+    log.Println("storydecompresslock",  lockstatus["storydecompresslock"])
+    log.Println("storydownloadlock",    lockstatus["storydownloadlock"])
+    log.Println("storysynclock",        lockstatus["storysynclock"])
 }
 
 func ClearLockStatus() {
@@ -86,25 +88,20 @@ func SleepWakeHandle() {
             cntdown = cntdownsum
             return
         }
-        fmt.Println(cntdown)
+        log.Println(cntdown)
         cntdown -= 1
         if cntdown == 0 {
             cntdown = cntdownsum
-            fmt.Println("Start sleep ...")
+            log.Println("Start sleep ...")
             // Action before sleep
-            fmt.Println(exec.Command("/bin/sh", "-c", "ifconfig wlan0 down").Output())
-            fmt.Println(exec.Command("/bin/sh", "-c", "/etc/init.d/ra stop").Output())
-            fmt.Println(exec.Command("/bin/sh", "-c", "echo test > /sys/power/wake_lock").Output())
-            fmt.Println(exec.Command("/bin/sh", "-c", "echo mem > /sys/power/state").Output())
-            fmt.Println(exec.Command("/bin/sh", "-c", "echo test > /sys/power/wake_unlock").Output())
+            SH.SleepHandle()
 
             time.Sleep(time.Second * 1)
 
             // Action after sleep
-            fmt.Println("Back from sleep ...")
-            fmt.Println(exec.Command("/bin/sh", "-c", "echo test > /sys/power/wake_lock").Output())
-            fmt.Println(exec.Command("/bin/sh", "-c", "ifconfig wlan0 up").Output())
-            fmt.Println(exec.Command("/bin/sh", "-c", "/etc/init.d/ra start").Output())
+            log.Println("Back from sleep ...")
+            WH.WakeHandle()
+
         }
 
         time.Sleep(time.Second * 1)
