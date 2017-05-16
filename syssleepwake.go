@@ -92,19 +92,19 @@ func SleepWakeHandle() {
             cntdown = cntdownsum
             fmt.Println("Start sleep ...")
             // Action before sleep
-            exec.Command("/bin/sh", "-c", "ifconfig wlan0 down")
-            exec.Command("/bin/sh", "-c", "/etc/init.d/ra stop")
-            exec.Command("/bin/sh", "-c", "echo test > /sys/power/wake_lock")
-            exec.Command("/bin/sh", "-c", "echo mem > /sys/power/state")
-            exec.Command("/bin/sh", "-c", "echo test > /sys/power/wake_unlock")
+            fmt.Println(exec.Command("/bin/sh", "-c", "ifconfig wlan0 down").Output())
+            fmt.Println(exec.Command("/bin/sh", "-c", "/etc/init.d/ra stop").Output())
+            fmt.Println(exec.Command("/bin/sh", "-c", "echo test > /sys/power/wake_lock").Output())
+            fmt.Println(exec.Command("/bin/sh", "-c", "echo mem > /sys/power/state").Output())
+            fmt.Println(exec.Command("/bin/sh", "-c", "echo test > /sys/power/wake_unlock").Output())
 
             time.Sleep(time.Second * 1)
 
             // Action after sleep
             fmt.Println("Back from sleep ...")
-            exec.Command("/bin/sh", "-c", "echo test > /sys/power/wake_lock")
-            exec.Command("/bin/sh", "-c", "ifconfig wlan0 up")
-            exec.Command("/bin/sh", "-c", "/etc/init.d/ra start")
+            fmt.Println(exec.Command("/bin/sh", "-c", "echo test > /sys/power/wake_lock").Output())
+            fmt.Println(exec.Command("/bin/sh", "-c", "ifconfig wlan0 up").Output())
+            fmt.Println(exec.Command("/bin/sh", "-c", "/etc/init.d/ra start").Output())
         }
 
         time.Sleep(time.Second * 1)
