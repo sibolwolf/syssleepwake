@@ -87,7 +87,7 @@ func SleepWakeHandle() {
             cntdown = cntdownsum
             return
         }
-        log.Println("System Sleep Countdown："cntdown)
+        log.Println("System Sleep Countdown:" + cntdown)
         cntdown -= 1
         if cntdown == 0 {
             cntdown = cntdownsum
