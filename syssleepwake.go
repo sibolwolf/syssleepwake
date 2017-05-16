@@ -5,7 +5,6 @@ package syssleepwake
 import (
     "log"
     "time"
-    "os/exec"
     SH "smartconn.cc/sibolwolf/syssleepwake/sleephandle"
     WH "smartconn.cc/sibolwolf/syssleepwake/wakehandle"
 )
