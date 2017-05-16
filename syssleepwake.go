@@ -113,24 +113,3 @@ func Init() {
     UpdateLockStatus("init", 0)
     go ContinueCnt()
 }
-
-func testLockStatus2() {
-    // Nothing to do
-    UpdateLockStatus("audiolock", 0)
-    time.Sleep(time.Second * 5)
-    UpdateLockStatus("storysynclock", 1)
-    time.Sleep(time.Second * 5)
-    UpdateLockStatus("storysynclock", 0)
-    time.Sleep(time.Second * 1)
-    UpdateLockStatus("storysynclock", 1)
-    time.Sleep(time.Second * 1)
-    UpdateLockStatus("storydecompresslock", 1)
-    time.Sleep(time.Second * 5)
-    UpdateLockStatus("storysynclock", 0)
-    time.Sleep(time.Second * 5)
-    UpdateLockStatus("storydecompresslock", 0)
-    UpdateLockStatus("storydecompresslock", 1)
-    UpdateLockStatus("storydecompresslock", 0)
-    UpdateLockStatus("storydecompresslock", 1)
-    UpdateLockStatus("storydecompresslock", 0)
-}
