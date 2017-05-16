@@ -30,6 +30,7 @@ func SysSWTest() {
 }
 
 func main() {
+    fmt.Println("Hello, SysSW")
     SysSW.Init()
     go SysSWTest()
 
