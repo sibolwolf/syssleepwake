@@ -14,7 +14,7 @@ func WakeHandle() {
     }
 
     cmd_wifi_up := exec.Command("/bin/sh", "-c", "ifconfig wlan0 up")
-    cmd_wifi_up_output, cmd_wifi_up_err := ccmd_wifi_up.Output()
+    cmd_wifi_up_output, cmd_wifi_up_err := cmd_wifi_up.Output()
     if cmd_wifi_up_err != nil {
         log.Println("cmd_wifi_up_err: " + cmd_wifi_up_err.Error())
         return

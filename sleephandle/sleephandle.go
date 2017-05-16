@@ -29,14 +29,14 @@ func SleepHandle() {
     }
 
     cmd_mem_down := exec.Command("/bin/sh", "-c", "echo mem > /sys/power/state")
-    _, cmd_mem_down_err = cmd_mem_down.Output()
+    _, cmd_mem_down_err := cmd_mem_down.Output()
     if cmd_mem_down_err != nil {
         log.Println("cmd_mem_down_err: " + cmd_mem_down_err.Error())
         return
     }
 
     cmd_wake_unlock := exec.Command("/bin/sh", "-c", "echo test > /sys/power/wake_unlock")
-    _, cmd_wake_unlock_err = cmd_wake_unlock.Output()
+    _, cmd_wake_unlock_err := cmd_wake_unlock.Output()
     if cmd_wake_unlock_err != nil {
         log.Println("cmd_wake_unlock_err: " + cmd_wake_unlock_err.Error())
         return
