@@ -14,7 +14,7 @@ func WakeHandle() {
     }
 
     cmd_wifi_up := exec.Command("/bin/sh", "-c", "ifconfig wlan0 up")
-    output, err := cmd_wake_lock.Output()
+    output, err = cmd_wake_lock.Output()
     if err != nil {
         log.Println("outputerr: " + err.Error())
         return
@@ -22,7 +22,7 @@ func WakeHandle() {
     log.Println(string(output))
 
     cmd_ra_up := exec.Command("/bin/sh", "-c", "/etc/init.d/ra start")
-    _, err := cmd_ra_up.Output()
+    _, err = cmd_ra_up.Output()
     if err != nil {
         log.Println("outputerr: " + err.Error())
         return

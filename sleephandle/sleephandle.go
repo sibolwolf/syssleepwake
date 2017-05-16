@@ -15,28 +15,28 @@ func SleepHandle() {
     log.Println(string(output))
 
     cmd_ra_down := exec.Command("/bin/sh", "-c", "/etc/init.d/ra stop")
-    _, err := cmd_ra_down.Output()
+    _, err = cmd_ra_down.Output()
     if err != nil {
         log.Println("outputerr: " + err.Error())
         return
     }
 
     cmd_wake_lock := exec.Command("/bin/sh", "-c", "echo test > /sys/power/wake_lock")
-    _, err := cmd_wake_lock.Output()
+    _, err = cmd_wake_lock.Output()
     if err != nil {
         log.Println("outputerr: " + err.Error())
         return
     }
 
     cmd_mem_down := exec.Command("/bin/sh", "-c", "echo mem > /sys/power/state")
-    _, err := cmd_mem_down.Output()
+    _, err = cmd_mem_down.Output()
     if err != nil {
         log.Println("outputerr: " + err.Error())
         return
     }
 
     cmd_wake_unlock := exec.Command("/bin/sh", "-c", "echo test > /sys/power/wake_unlock")
-    _, err := cmd_wake_unlock.Output()
+    _, err = cmd_wake_unlock.Output()
     if err != nil {
         log.Println("outputerr: " + err.Error())
         return
