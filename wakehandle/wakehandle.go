@@ -7,24 +7,25 @@ import (
 
 func WakeHandle() {
     cmd_wake_lock := exec.Command("/bin/sh", "-c", "echo test > /sys/power/wake_lock")
-    _, err := cmd_wake_lock.Output()
+    _, cmd_wake_lock_err := cmd_wake_lock.Output()
     if err != nil {
-        log.Println("outputerr: " + err.Error())
+        log.Println("cmd_wake_lock_err: " + cmd_wake_lock_err.Error())
         return
     }
 
     cmd_wifi_up := exec.Command("/bin/sh", "-c", "ifconfig wlan0 up")
-    output, err = cmd_wake_lock.Output()
+    cmd_wifi_up_output, cmd_wifi_up_err := cmd_wake_lock.Output()
     if err != nil {
-        log.Println("outputerr: " + err.Error())
+        log.Println("cmd_wifi_up_err: " + cmd_wifi_up_err.Error())
         return
     }
-    log.Println(string(output))
+    log.Println(string(cmd_wifi_up_output))
 
     cmd_ra_up := exec.Command("/bin/sh", "-c", "/etc/init.d/ra start")
-    _, err = cmd_ra_up.Output()
+    cmd_ra_up_output, cmd_ra_up_err := cmd_ra_up.Output()
     if err != nil {
-        log.Println("outputerr: " + err.Error())
+        log.Println("cmd_ra_up_err: " + cmd_ra_up_err.Error())
         return
     }
+    log.Println(string(cmd_ra_up_output))
 }
