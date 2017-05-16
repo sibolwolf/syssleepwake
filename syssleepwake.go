@@ -87,15 +87,13 @@ func SleepWakeHandle() {
             cntdown = cntdownsum
             return
         }
-        log.Println(cntdown)
+        log.Println("System Sleep Countdown："cntdown)
         cntdown -= 1
         if cntdown == 0 {
             cntdown = cntdownsum
             log.Println("Start sleep ...")
             // Action before sleep
             SH.SleepHandle()
-
-            time.Sleep(time.Second * 5)
 
             // Action after sleep
             log.Println("Back from sleep ...")
