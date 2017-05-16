@@ -5,6 +5,7 @@ package syssleepwake
 import (
     "log"
     "time"
+    "strconv"
     SH "smartconn.cc/sibolwolf/syssleepwake/sleephandle"
     WH "smartconn.cc/sibolwolf/syssleepwake/wakehandle"
 )
@@ -87,7 +88,7 @@ func SleepWakeHandle() {
             cntdown = cntdownsum
             return
         }
-        log.Println("System Sleep Countdown:" + string(cntdown))
+        log.Println("System Sleep Countdown:" + strconv.Itoa(cntdown))
         cntdown -= 1
         if cntdown == 0 {
             cntdown = cntdownsum
