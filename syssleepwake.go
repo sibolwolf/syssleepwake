@@ -27,7 +27,8 @@ var lockstatus = map[string]int{
 var initlocksum int = 0
 var currlocksum int = 0
 var lastlocksum int = 0
-var cntdown int = 300
+var cntdownsum int = 50
+var cntdown int = 50
 
 func ShowLockStatus() {
     fmt.Println("---------------------------------------")
@@ -69,7 +70,7 @@ func UpdateLockStatus(key string, value int) {
 func ContinueCnt(){
     for {
         if currlocksum != initlocksum {
-            cntdown = 300   // 300s
+            cntdown = cntdownsum   // 300s
         }
 
         if currlocksum == initlocksum {
@@ -82,13 +83,14 @@ func SleepWakeHandle() {
     // When system go to sleep, there is something need to do
     for cntdown > 0{
         if currlocksum != initlocksum {
-            cntdown = 300
+            cntdown = cntdownsum
             return
         }
         fmt.Println(cntdown)
         cntdown -= 1
         if cntdown == 0 {
-            cntdown = 300
+            cntdown = cntdownsum
+            fmt.Println("Start sleep ...")
             // Action before sleep
             exec.Command("/bin/sh", "-c", "ifconfig wlan0 down")
             exec.Command("/bin/sh", "-c", "/etc/init.d/ra stop")
@@ -99,6 +101,7 @@ func SleepWakeHandle() {
             time.Sleep(time.Second * 1)
 
             // Action after sleep
+            fmt.Println("Back from sleep ...")
             exec.Command("/bin/sh", "-c", "echo test > /sys/power/wake_lock")
             exec.Command("/bin/sh", "-c", "ifconfig wlan0 up")
             exec.Command("/bin/sh", "-c", "/etc/init.d/ra start")
