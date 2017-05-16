@@ -3,9 +3,23 @@ package wakehandle
 import (
     "log"
     "os/exec"
+    KEY "smartconn.cc/liugen/input"
 )
 
 func WakeHandle() {
+    KEY.Connect("readingangel")
+    KEY.GetButton("power").OnPress(func() {
+            log.Println("RA got a short key press event for power")
+            WakeHandleAction()
+        })
+
+    KEY.GetButton("home").OnPress(func() {
+            log.Println("RA got a short key press event for home")
+            WakeHandleAction()
+        })
+}
+
+func WakeHandleAction() {
     cmd_wake_lock := exec.Command("/bin/sh", "-c", "echo test > /sys/power/wake_lock")
     _, cmd_wake_lock_err := cmd_wake_lock.Output()
     if cmd_wake_lock_err != nil {
