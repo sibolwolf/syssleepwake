@@ -6,6 +6,7 @@ import (
 )
 
 func SleepHandle() {
+    log.Println("Start sleep ...")
     log.Println("#1. SleepHandle: Close Wifi ..........")
     cmd_wifi_down := exec.Command("/bin/sh", "-c", "ifconfig wlan0 down")
     _, cmd_wifi_down_err := cmd_wifi_down.Output()

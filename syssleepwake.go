@@ -29,8 +29,8 @@ var lockstatus = map[string]int{
 var initlocksum int = 0
 var currlocksum int = 0
 var lastlocksum int = 0
-var cntdownsum int = 50
-var cntdown int = 50
+var cntdownsum int = 30
+var cntdown int = 30
 
 func ShowLockStatus() {
     log.Println("---------------------------------------")
@@ -92,14 +92,12 @@ func SleepWakeHandle() {
         cntdown -= 1
         if cntdown == 0 {
             cntdown = cntdownsum
-            log.Println("Start sleep ...")
+
             // Action before sleep
             SH.SleepHandle()
 
             // Action after sleep
-            log.Println("Back from sleep ...")
             WH.WakeHandle()
-
         }
 
         time.Sleep(time.Second * 1)
