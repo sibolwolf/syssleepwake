@@ -4,17 +4,41 @@ import (
     "log"
     "os/exec"
     "time"
+    "strings"
     KEY "smartconn.cc/liugen/input"
 )
 
-func WakeHandle() {
+var wakestatus int
+
+
+
+func WakeJudgment() {
+    cmd := exec.Command("/bin/sh", "-c", "sysint getSysUnlockStatus")
+    bytes, err := cmd.Output()
+    if err != nil {
+        log.Println("Powerbutton get a fault when wake up: " + err.Error())
+    } else {
+        sysunlockstatus := strings.TrimSpace(string(bytes))
+        if sysunlockstatus == "test" {
+            WakeHandleAction()
+        }
+    }
+}
+// Power button trig wake up
+func WakeHandlePowerButton() {
+    log.Println("----------------------------------------------------")
+    log.Println("Power button trig wake up")
     var deconnectpower func()
     KEY.Connect("readingangel")
     deconnectpower = KEY.GetButton("power").OnPress(func() {
             log.Println("RA got a short key press event for power")
-            WakeHandleAction()
+            WakeJudgment()
             deconnectpower()
         })
+}
+
+func WakeHandle() {
+    go WakeHandlePowerButton()
 }
 
 func WakeHandleAction() {

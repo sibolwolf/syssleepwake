@@ -21,6 +21,7 @@ storysynclock
 var lockstatus = map[string]int{
     "audiolock": 0,
     "cameralock": 0,
+    "chargelock": 0,
     "storydecompresslock": 0,
     "storydownloadlock": 0,
     "storysynclock": 0,
@@ -29,14 +30,15 @@ var lockstatus = map[string]int{
 var initlocksum int = 0
 var currlocksum int = 0
 var lastlocksum int = 0
-var cntdownsum int = 30
-var cntdown int = 30
+var cntdownsum int = 60
+var cntdown int = 60
 
 func ShowLockStatus() {
     log.Println("---------------------------------------")
     log.Printf("Current lock status is: %d\n", currlocksum)
     log.Println("audiolock:",           lockstatus["audiolock"])
     log.Println("cameralock:",          lockstatus["cameralock"])
+    log.Println("chargelock:",          lockstatus["chargelock"])
     log.Println("storydecompresslock",  lockstatus["storydecompresslock"])
     log.Println("storydownloadlock",    lockstatus["storydownloadlock"])
     log.Println("storysynclock",        lockstatus["storysynclock"])
@@ -66,7 +68,7 @@ func UpdateLockStatus(key string, value int) {
         lastlocksum = currlocksum
     }
 
-    time.Sleep(500)
+    //time.Sleep(500)
 }
 
 func ContinueCnt(){
