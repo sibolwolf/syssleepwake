@@ -8,6 +8,7 @@ import (
     "strconv"
     SH "smartconn.cc/sibolwolf/syssleepwake/sleephandle"
     WH "smartconn.cc/sibolwolf/syssleepwake/wakehandle"
+    KEY "smartconn.cc/liugen/input"
 )
 
 /*
@@ -99,7 +100,8 @@ func SleepWakeHandle() {
             SH.SleepHandle()
 
             // Action after sleep
-            WH.WakeHandle()
+            // Nothing to do
+            //WH.WakeHandle()
         }
 
         time.Sleep(time.Second * 1)
@@ -110,4 +112,10 @@ func Init() {
     ClearLockStatus()
     UpdateLockStatus("init", 0)
     go ContinueCnt()
+
+    KEY.Connect("readingangel")
+    KEY.GetButton("power").OnPress(func() {
+        log.Println("RA got a short key press event for power")
+        WH.WakeJudgment()
+    })
 }

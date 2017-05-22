@@ -3,9 +3,7 @@ package wakehandle
 import (
     "log"
     "os/exec"
-    "time"
     "strings"
-    KEY "smartconn.cc/liugen/input"
 )
 
 var wakestatus int
@@ -24,6 +22,8 @@ func WakeJudgment() {
         }
     }
 }
+
+/*
 // Power button trig wake up
 func WakeHandlePowerButton() {
     log.Println("----------------------------------------------------")
@@ -33,13 +33,9 @@ func WakeHandlePowerButton() {
     deconnectpower = KEY.GetButton("power").OnPress(func() {
             log.Println("RA got a short key press event for power")
             WakeJudgment()
-            deconnectpower()
         })
 }
-
-func WakeHandle() {
-    go WakeHandlePowerButton()
-}
+*/
 
 func WakeHandleAction() {
     log.Println("Back from sleep ...")
@@ -60,7 +56,6 @@ func WakeHandleAction() {
     //log.Println(string(cmd_wifi_up_output))
 
     // Sleep 1 Second
-    time.Sleep(time.Second * 1)
     log.Println("#3. WakeHandle: Start RA ..........")
     cmd_ra_up := exec.Command("/bin/sh", "-c", "/etc/init.d/ra start")
     _, cmd_ra_up_err := cmd_ra_up.Output()
